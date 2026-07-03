@@ -14,8 +14,7 @@ export const profile = {
   githubLabel: "ArcenyAle",
   email: "arcenyrivera2@gmail.com",
   school: "UC Irvine",
-  // Set to a real URL (e.g. "/resume.pdf") once the résumé file exists.
-  resumeUrl: null as string | null,
+  resumeUrl: "/Arceny_Rivera_Resume.pdf" as string | null,
 };
 
 // A generic outbound reference — used for LinkedIn posts, secondary
@@ -51,26 +50,17 @@ export const projects: Project[] = [
     category: "Full-Stack · Lead Developer",
     year: "2026",
     title: "Xperience",
-    // TODO: still placeholder text — send a real description
+    // TODO(Arceny): still placeholder text — send a real description
     // (what it does, the problem it solves, your role/stack) and I'll
     // swap this in. Video link is wired up below already.
     description:
       "Placeholder — add the problem it solves, your architecture, and a measurable outcome.",
-    tags: ["React", "Node.js", "PostgreSQL"],
-    // Once /public/xp.png exists, set: image: "/xp.png"
+    tags: ["React", "Next.js", "Node.js", "PostgreSQL", "Tailwind"],
+    image: "/xp.png",
     videoUrl:
       "https://drive.google.com/file/d/1fMd0j4Q1hD4_pp7ecQRrNpVYuZUWgrp6/view?usp=sharing",
     demoStatus: "archived",
   },
-  // {
-  //   id: "example-2",
-  //   category: "Full-Stack",
-  //   year: "2024",
-  //   title: "Example 2",
-  //   description:
-  //     "Placeholder for a second web project. Add the description, stack, and the impact once you're happy with the layout.",
-  //   tags: ["TypeScript", "Python", "FastAPI"],
-  // },
   {
     id: "psyche-mission",
     category: "Capstone · NASA Psyche Mission",
@@ -103,7 +93,7 @@ export const xrProjects: XRProject[] = [
     description:
       "A scenario-based HR training simulation combining XR and AI, built on SimInsights' HyperSkill platform. Designed the training scenarios end-to-end — including an AI-driven character playing a represented staff member — to give trainees unlimited, self-paced practice in a low-stakes immersive environment. Built independently during the SimInsights internship and highlighted by leadership as a standout example of initiative.",
     tags: ["HyperSkill", "AI Training", "XR"],
-    // Once /public/hr.png exists, set: image: "/hr.png"
+    image: "/hr.png",
     links: [
       {
         label: "LinkedIn shoutout post ↗",
@@ -119,7 +109,7 @@ export const xrProjects: XRProject[] = [
     description:
       "Led development of 4 interactive VR dorm environments in Unity, with full user-navigation systems for exploring each space. Delivered the experience live at UCI Celebrate, supporting 20–30 simultaneous VR headsets under continuous foot traffic. Built two deployment paths — a standalone Unity build for sideloading onto headsets, and a Hyperscale-hosted version for scalable live demos — leading architecture decisions across a 3-developer team.",
     tags: ["Unity", "C#", "Meta Quest"],
-    // Once /public/emxr.png exists, set: image: "/emxr.png"
+    image: "/emxr.png",
     links: [
       {
         label: "LinkedIn showcase post ↗",

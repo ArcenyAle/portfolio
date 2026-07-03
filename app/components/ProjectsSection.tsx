@@ -91,7 +91,7 @@ export function ProjectsSection() {
           </div>
         )}
 
-        <div className="grid gap-6 md:grid-cols-2">
+        <div className="grid gap-6 md:grid-cols-1">
           {rest.map((project) => (
             <div
               key={project.id}
