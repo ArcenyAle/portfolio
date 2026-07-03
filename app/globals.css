@@ -1,26 +1,190 @@
 @import "tailwindcss";
 
+/* =====================================================================
+   DESIGN SYSTEM — single source of truth
+   ---------------------------------------------------------------------
+   Edit colors here. Everything else (components, pages) references
+   Tailwind utilities like `bg-primary`, `text-ink-secondary`,
+   `border-line`, `shadow-md`, `rounded-lg` — never raw hex values.
+   Change a value in this file and it updates everywhere, in both
+   light and dark mode.
+   ===================================================================== */
+
+/* Enables class-based dark mode: `dark:` utilities apply whenever
+   the <html> element (or an ancestor) has class="dark". Toggled by
+   ThemeToggle.tsx, persisted to localStorage. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ---------------------------------------------------------------------
+   1. RAW TOKENS — the actual color/shadow values, per mode.
+   This is the ONLY place light vs. dark values are defined.
+   --------------------------------------------------------------------- */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Backgrounds */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f6f7f9;
+  --bg-elevated: #ffffff;
+
+  /* Text */
+  --text-primary: #171a21;
+  --text-secondary: #5e6472;
+  --text-tertiary: #858c98;
+  --text-inverse: #ffffff;
+
+  /* Accent (brand indigo) */
+  --accent: #5b5fd6;
+  --accent-hover: #4a4ec2;
+  --accent-soft: #f1f1fc;
+  --accent-text: #4a4ec2;
+
+  /* Borders */
+  --border: #e4e7eb;
+  --border-strong: #d3d7de;
+
+  /* Focus ring */
+  --focus-ring: color-mix(in srgb, #5b5fd6 45%, transparent);
+
+  /* Shadows */
+  --shadow-raw-xs: 0 1px 2px rgba(16, 20, 30, 0.05);
+  --shadow-raw-sm: 0 1px 3px rgba(16, 20, 30, 0.06), 0 1px 2px rgba(16, 20, 30, 0.04);
+  --shadow-raw-md: 0 4px 12px rgba(16, 20, 30, 0.07), 0 2px 4px rgba(16, 20, 30, 0.04);
+  --shadow-raw-lg: 0 12px 32px rgba(16, 20, 30, 0.1), 0 4px 8px rgba(16, 20, 30, 0.05);
 }
 
+.dark {
+  /* Backgrounds */
+  --bg-primary: #0d0f14;
+  --bg-secondary: #121419;
+  --bg-elevated: #161920;
+
+  /* Text */
+  --text-primary: #f3f4f6;
+  --text-secondary: #969cab;
+  --text-tertiary: #6b7280;
+  --text-inverse: #0d0f14;
+
+  /* Accent */
+  --accent: #8b8ef0;
+  --accent-hover: #a5a8f5;
+  --accent-soft: #1b1c2e;
+  --accent-text: #a5a8f5;
+
+  /* Borders */
+  --border: #262a33;
+  --border-strong: #333844;
+
+  /* Focus ring */
+  --focus-ring: color-mix(in srgb, #8b8ef0 50%, transparent);
+
+  /* Shadows (deeper, black-based, for dark surfaces) */
+  --shadow-raw-xs: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-raw-sm: 0 1px 3px rgba(0, 0, 0, 0.5), 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-raw-md: 0 4px 14px rgba(0, 0, 0, 0.55), 0 2px 4px rgba(0, 0, 0, 0.4);
+  --shadow-raw-lg: 0 16px 40px rgba(0, 0, 0, 0.6), 0 4px 10px rgba(0, 0, 0, 0.45);
+}
+
+/* ---------------------------------------------------------------------
+   2. THEME MAP — exposes the raw tokens above as Tailwind utilities.
+   `inline` keeps a live var() reference so utilities re-resolve
+   instantly when .dark is toggled (no re-render needed).
+   Generates: bg-primary / text-ink / border-line / shadow-md / etc.
+   --------------------------------------------------------------------- */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-primary: var(--bg-primary);
+  --color-secondary: var(--bg-secondary);
+  --color-elevated: var(--bg-elevated);
+
+  --color-ink: var(--text-primary);
+  --color-ink-secondary: var(--text-secondary);
+  --color-ink-tertiary: var(--text-tertiary);
+  --color-ink-inverse: var(--text-inverse);
+
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-ink: var(--accent-text);
+
+  --color-line: var(--border);
+  --color-line-strong: var(--border-strong);
+
+  --color-focus: var(--focus-ring);
+
+  --shadow-xs: var(--shadow-raw-xs);
+  --shadow-sm: var(--shadow-raw-sm);
+  --shadow-md: var(--shadow-raw-md);
+  --shadow-lg: var(--shadow-raw-lg);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ---------------------------------------------------------------------
+   3. STATIC TOKENS — don't change between light/dark, so they're
+   declared once as build-time constants. Still fully editable here.
+   --------------------------------------------------------------------- */
+@theme {
+  /* Fonts (families come from next/font in layout.tsx) */
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, "SF Mono", "Menlo", monospace;
+
+  /* Type scale beyond Tailwind's defaults */
+  --text-hero: clamp(2.75rem, 1.6rem + 4.6vw, 4.5rem);
+  --text-hero--line-height: 1.08;
+  --text-lead: 1.1875rem;
+  --text-lead--line-height: 1.5;
+  --text-meta: 0.8125rem;
+  --text-meta--line-height: 1.5;
+
+  /* Radius scale — overrides Tailwind's defaults project-wide */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --radius-pill: 999px;
+
+  /* Motion */
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --animate-fade-up: fade-up 500ms var(--ease-out) both;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ---------------------------------------------------------------------
+   4. BASE STYLES
+   --------------------------------------------------------------------- */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 84px;
+  }
+
+  body {
+    background: var(--color-primary);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background: var(--color-accent-soft);
+  }
+
+  input:focus-visible,
+  textarea:focus-visible,
+  button:focus-visible,
+  a:focus-visible {
+    outline: none;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px var(--color-focus);
+  }
 }
